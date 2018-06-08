@@ -1,0 +1,6 @@
+---
+- name: assign role my-machine to localhost
+  hosts: localhost
+  become: yes
+  roles:
+  - my-machine

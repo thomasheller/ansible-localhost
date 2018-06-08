@@ -1,0 +1,7 @@
+---
+- name: Install zsh
+  apt: name=zsh state=present
+
+- name: Install vim
+  apt: name=vim state=present
+
