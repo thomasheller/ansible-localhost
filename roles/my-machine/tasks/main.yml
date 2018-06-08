@@ -1,7 +1,37 @@
 ---
-- name: Install zsh
-  apt: name=zsh state=present
+- name: Install useful default packages
+  become: yes
+  apt: name={{ item }} state=present
+  with_items:
+  - apt-file
+  - bzip2
+  - curl
+  - exuberant-ctags
+  - gimp
+  - git
+  - gnuplot
+  - ncdu
+  - netcat-openbsd
+  - nmap
+  - npm
+  - pdfgrep
+  - tmux
+  - tree
+  - vim
+  - zip
+  - zsh
 
-- name: Install vim
-  apt: name=vim state=present
+- name: User-specific bin directory
+  file:
+    name: "{{ ansible_env.HOME }}/bin"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0700
+
+- name: Gimme for Go
+  get_url:
+    url: https://raw.githubusercontent.com/travis-ci/gimme/master/gimme
+    dest: "{{ ansible_env.HOME }}/bin/gimme"
+    mode: 0700
 
